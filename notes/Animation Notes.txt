@@ -1,0 +1,13 @@
+Refokus clone animations
+
+1. Installing locomotive JS
+> Search for locomotive js and move to github.
+> now install Locomotive JS version 5 (BETA) as npm now in App.jsx type import and const inside the App function.
+
+
+1. Introduction to FramerMotion{work.jsx}
+> install (npm install framer-motion)
+> import { motion } from "framer-motion" to that file where ti use it
+> jab value 25 ho, to first image dikhe
+> jab value 25 ho, to first image dikhe
+
