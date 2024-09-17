@@ -14,7 +14,7 @@ import Loader from './components/Loader'
 function App() {
   const locomotiveScroll = new LocomotiveScroll();
   return (
-    <div className='text-white cursor-none font-["satoshi",sans-serif] min-h-screen w-full bg-black select-none'>
+    <div className='text-white cursor-none font min-h-screen w-full bg-black select-none'>
       <Loader/>
       <Customcursor />
       <Navbar />

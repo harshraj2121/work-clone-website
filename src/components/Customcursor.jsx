@@ -1,27 +1,51 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
-function Customcursor() {
+const CustomCursor = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [size, setSize] = useState(30); // Default size
 
-    const [position, setPosition] = useState({x: 0, y: 0});
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
 
-    useEffect(()=> {
-        const handleMouseMove = (event) => {
-            setPosition({x: event.clientX, y: event.clientY});
-        }
-        document.addEventListener('mousemove', handleMouseMove);
+    const handleMouseEnter = (e) => {
+      if (e.target.closest('button, a')) {
+        setSize(64); // Increase size for buttons and links
+      }
+    };
 
-        return () => {
-            document.removeEventListener('mousemove', handleMouseMove);
-        }
-    }, []);
+    const handleMouseLeave = (e) => {
+      if (e.target.closest('button, a')) {
+        setSize(30); // Reset size
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseover', handleMouseEnter);
+    window.addEventListener('mouseout', handleMouseLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseover', handleMouseEnter);
+      window.removeEventListener('mouseout', handleMouseLeave);
+    };
+  }, []);
 
   return (
-    <div style={{
-        left: `${position.x}px`,
-        top: ` ${position.y}px`,
-        transition: 'transform 0.1s ease-out'
-    }} className='fixed z-50 w-6 h-6 bg-slate-200 opacity-75 rounded-full pointer-events-none transform -translate-x-1/2 -translate-y-1/2'/>
-  )
-}
+    <div
+      style={{
+        left: position.x,
+        top: position.y,
+        width: size,
+        height: size,
+        mixBlendMode: 'difference',  // Apply mix-blend-mode
+        transition: 'width 0.3s ease, height 0.3s ease', // Smooth size transition
+        zIndex: 9999, // Ensure cursor is on top
+      }}
+      className="fixed bg-white w-4 h-4 rounded-full pointer-events-none transform -translate-x-1/2 -translate-y-1/2"
+    ></div>
+  );
+};
 
-export default Customcursor
+export default CustomCursor;
